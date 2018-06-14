@@ -1,0 +1,32 @@
+galaxy_info:
+  author: 'Brad Stancel'
+  description: Downloads and installs a chosen release of the Mantis Bug Tracking software to the default document root for the Apache webserver
+  company: YourOnlineDept.com
+
+  license: GPLv3
+
+  min_ansible_version: 2.4
+
+
+  #github_branch:
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+  - name: Debian
+    versions:
+    - 7
+    - 8
+    - 9
+
+
+  galaxy_tags: 
+    - mantis
+    - bug-tracking
+    - apache2
+    - php7
+
+dependencies: 
+  - stancel.apache-webserver

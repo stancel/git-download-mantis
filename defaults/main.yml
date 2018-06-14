@@ -1,0 +1,6 @@
+---
+# defaults file for git-download-mantis
+
+# The git repo for the Mantis Bug Tracker (BT)
+git_repo: "https://github.com/mantisbt/mantisbt.git"
+

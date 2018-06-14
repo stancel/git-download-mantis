@@ -1,0 +1,19 @@
+---
+# vars file for git-download-mantis
+
+#####     Required Variables      #####
+# Fill in appropriate values below unless passing from a higher precedence
+
+# Choose the git tagged release that you would like to download and install
+tagged_release_version: "release-2.15.0"
+
+
+#####     Optional Variables      #####
+
+# These variables are set with the below defaults in defaults/main.yml. 
+# Only uncomment and change them or pass values if you would like
+
+# The git repo for the Mantis Bug Tracker (BT)
+#git_repo: "https://github.com/mantisbt/mantisbt.git"
+
+
