@@ -11,13 +11,15 @@ Need to have a Debian based Linux (Ubuntu, Debian, etc.) setup with MySQL and Ap
 Role Variables
 --------------
 
-Choose the git tagged release that you would like to download and install
-
-	`tagged_release_version: "release-2.15.0"`
-
+Choose the git tagged release that you would like to download and install. Comment this out if using a git branch instead.
+```
+	tagged_release_version: "release-2.15.0"
+```
 The git repo for the Mantis Bug Tracker (BT). This is the default but can be changed if you have a forked/modified git repo that you would prefer to use.
+```
+	git_repo: "https://github.com/mantisbt/mantisbt.git"
+```
 
-	`git_repo: "https://github.com/mantisbt/mantisbt.git"``
 
 
 Dependencies

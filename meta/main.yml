@@ -7,8 +7,7 @@ galaxy_info:
 
   min_ansible_version: 2.4
 
-
-  #github_branch:
+  github_branch: master
 
   platforms:
   - name: Ubuntu
@@ -17,14 +16,13 @@ galaxy_info:
     - xenial
   - name: Debian
     versions:
-    - 7
-    - 8
-    - 9
+    - wheezy
+    - jessie
+    - stretch
 
 
   galaxy_tags: 
     - mantis
-    - bug-tracking
     - apache2
     - php7
 
