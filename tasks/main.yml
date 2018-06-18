@@ -2,7 +2,7 @@
 # tasks file for git-download-mantis
 
 - name: "Install Git and other needed packages"
-  apt: name={{ item }}
+  package: name={{ item }}
   with_items: 
   - git
   - php7.0-mbstring

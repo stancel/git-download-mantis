@@ -1,12 +1,17 @@
 git-download-mantis
 =========
 
-Ansible role that downloads and installs a chosen release of the Mantis Bug Tracking software to the default document root for the Apache webserver.
+Ansible role that downloads and installs a chosen release of the Mantis Bug Tracking software to the default document root for the Apache webserver. When pulling up the URL of your Mantis installation after this role has been run you should see the installation screens that will check the requirements and install the database (DDL) scripts. Once that is completed you should login with the following info:
+```
+	username: administrator
+	password: root
+```
+After that you should remove the ``<install_path>/admin` folder
 
 Requirements
 ------------
 
-Need to have a Debian based Linux (Ubuntu, Debian, etc.) setup with MySQL and Apache already setup and configured. This role uses the default `/var/www/html` document root path to install the Mantis BT software.
+Need to already have MySQL / MariaDB / Percona Server and your webserver (Apache or Nginx) already setup and configured. The defaults assume a Debian based Linux (Ubuntu, Debian, etc.) with a default webserver document root of `/var/www/html` to install the Mantis BT software. You can override those default variables if that is not the case.
 
 Role Variables
 --------------
@@ -48,7 +53,7 @@ The linux group used by your webserver. The default value is "www-data" which as
 Dependencies
 ------------
 
-	- stancel.apache-webserver
+	None
 
 Example Playbook
 ----------------
