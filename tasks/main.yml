@@ -16,51 +16,9 @@
   - php7.0-odbc
   - php7.0-zip
   - php7.0-soap
+  - php7.0-gd
   notify: 
   - restart-apache
-
-- name: "Clearing out existing web directory"
-  file: 
-    state: absent 
-    path: /var/www/html/
-
-- name: "Re-creating html directory"
-  file:
-    path: /var/www/html
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: 0644
-    recurse: yes
-
-- name: "Git clone the Mantis BT repo"
-  command: git clone {{ git_repo }} html
-  args: 
-    chdir: /var/www
-
-- name: "Checkout the desired release"
-  command: git checkout {{ tagged_release_version }}
-  args: 
-    chdir: /var/www/html
-
-- name: "Setting ownership and permissions for web directory"
-  file:
-    path: /var/www/html
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: 0755
-    recurse: yes
-
-- name: "Install Composer program"
-  script: ../files/install_composer.sh
-  args: 
-    creates: /usr/local/bin/composer
-
-- name: "Install Composer packages"
-  composer: 
-    command: install
-    working_dir: /var/www/html
 
 - name: "Changing PHP ini file options"
   ini_file: 
@@ -90,13 +48,71 @@
     option: upload_max_filesize
     value: 64M
 
+- name: "Clearing out existing web directory"
+  file: 
+    state: absent 
+    path: "{{ web_files_path }}/"
 
+- name: "Re-creating html directory"
+  file:
+    path: "{{ web_files_path }}"
+    state: directory
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    mode: 0644
+    recurse: yes
 
+- name: "Git clone the Mantis BT repo"
+  command: git clone {{ git_repo }} html
+  args: 
+    chdir: "{{ web_files_path }}/.."
 
+- name: "Checkout the desired release"
+  command: git checkout {{ tagged_release_version }}
+  args: 
+    chdir: "{{ web_files_path }}"
 
+- name: "Install Composer program"
+  script: ../files/install_composer.sh
+  args: 
+    creates: /usr/local/bin/composer
 
+- name: "Install Composer packages"
+  composer: 
+    command: install
+    working_dir: "{{ web_files_path }}"
 
+- name: "Copying over config file"
+  template:
+    src: ../templates/config_inc.php.sample
+    dest: "{{ web_files_path }}/config/config_inc.php.sample"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    mode: 0755
 
+- name: "Setting ownership and permissions for web directory"
+  file:
+    path: "{{ web_files_path }}"
+    state: directory
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    mode: 0755
+    recurse: yes
 
+- name: "Removing Git folder from web server permissions"
+  file:
+    path: "{{ web_files_path }}/.git"
+    state: directory
+    owner: root
+    group: root
+    mode: 0640
+    recurse: yes
 
+- name: "Removing .gitignore from web server permissions"
+  file:
+    path: "{{ web_files_path }}/.gitignore"
+    state: file
+    owner: root
+    group: root
+    mode: 0640
 

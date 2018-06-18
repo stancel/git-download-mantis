@@ -19,8 +19,31 @@ The git repo for the Mantis Bug Tracker (BT). This is the default but can be cha
 ```
 	git_repo: "https://github.com/mantisbt/mantisbt.git"
 ```
+The DB user the application will use to connect. The default is 'mantisdbuser'. 
+```
+	db_username: 'mantisdbuser'
+``` 
+The DB password used by the db_username value to connect to the database. The default is an empty string.
 
-
+```
+	db_password: ''
+```
+The name of the database to create and use for Mantis BT. The default is 'bugtracker'
+```
+	database_name: 'bugtracker'
+```
+The Document Root or file path where Mantis files will be stored and served up by your webserver. The default path is "/var/www/html" and assumes you are running Apache2 on Debian or Ubuntu
+```
+	web_files_path: "/var/www/html"
+```
+The linux username used by your webserver. The default value is "www-data" which assumes Apache is used on a Debian or Ubuntu linux
+```
+	web_user: "www-data"
+```
+The linux group used by your webserver. The default value is "www-data" which assumes Apache is used on a Debian or Ubuntu linux
+```
+	web_group: "www-data"
+```
 
 Dependencies
 ------------
