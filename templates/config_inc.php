@@ -1,8 +1,8 @@
 <?php
 $g_hostname               = 'localhost';
 $g_db_type                = 'mysqli';
-$g_database_name          = '{{ database_name }}';
-$g_db_username            = '{{ db_username }}';
+$g_database_name          = '{{ db_name }}';
+$g_db_username            = '{{ db_user }}';
 $g_db_password            = '{{ db_password }}';
 
 $g_default_timezone       = 'UTC';

@@ -1,18 +1,19 @@
 ---
-# defaults file for git-download-mantis
+# defaults file for git-download-mantis, will be used if any of these have been defined elsewhere
 
-# The git repo for the Mantis Bug Tracker (BT)
+# The default git repo to use when downloading and installing the application
 git_repo: "https://github.com/mantisbt/mantisbt.git"
 
-# The DB user the application will use to connect.
-db_username: 'mantisdbuser'
-# The DB password used by the db_username value to connect to the database
-db_password: ''
-# The name of the database to create and use for Mantis BT
-database_name: 'bugtracker'
+# If you are using your own forked repo an want to use a branch instead of a tagged release then fill in a value and comment out the "tagged_release_version" variable 
+git_branch: ""
 
-# The Document Root or file path where Mantis files will be stored and served up by your webserver. The default path is "/var/www/html" and assumes you are running Apache2 on Debian or Ubuntu
-web_files_path: "/var/www/html"
+# The database to create when setting up the application
+db_name: "bugtracker"
+
+# The Document Root or file path where the files will be stored and served up by your webserver. The default path is "/var/www/html" and assumes you are running Apache2 on Debian or Ubuntu
+web_files_path: "/var/www"
+web_directory_for_application: "/html"
+
 
 # The linux username used by your webserver. The default value is "www-data" which assumes Apache is used on a Debian or Ubuntu linux
 web_user: "www-data"
@@ -20,5 +21,26 @@ web_user: "www-data"
 # The linux group used by your webserver. The default value is "www-data" which assumes Apache is used on a Debian or Ubuntu linux
 web_group: "www-data"
 
-# Is this a fresh install (yes) or a restore of another environment
-#new_install: 'yes'  # not yet implemented
+# manage package with apt, you can disable the installation of package
+manage_packages: true
+
+# php.ini configurations flags, to allow or not the settings of these items, default is true, useful if your server is already setup with different values
+configure_mysqli_allow_local_infile: true
+configure_memory_limit: true
+configure_post_max_size: true
+configure_upload_max_filesize: true
+configure_max_input_time: true
+configure_max_execution_time: true
+configure_php_timezone: true
+
+# Install composer or not, default yes
+install_composer: true
+
+# Is this a "new", "upgrade" or "restore" installation? "new" and "upgrade" installs install files from Git, "restore" skips any git deployments and expect a later role to restore files to the needed directory.
+installation_type: "new"
+
+# Is this instance to be used for a "dev", "qa" or "prod" environment? Only "prod" environments will deploy any needed cron jobs or schedulers.
+environment_type: "prod"
+
+
+
