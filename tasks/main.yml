@@ -207,6 +207,7 @@
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
     mode: 0755
+  when: (installation_type == "new" or installation_type == "upgrade")
 
 - name: "Setting ownership and permissions for web directory"
   file:
