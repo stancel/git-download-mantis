@@ -191,61 +191,61 @@
   script: ../files/install_composer.sh
   args: 
     creates: /usr/local/bin/composer
-  when: install_composer
+  when: git_download_mantis_install_composer
 
 - name: "Install Composer packages"
   composer: 
     command: install
-    working_dir: "{{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }}"
-  when: (git_download_mantis_configure_installation_type == "new" or git_download_mantis_configure_installation_type == "upgrade")
+    working_dir: "{{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }}"
+  when: (git_download_mantis_installation_type == "new" or git_download_mantis_installation_type == "upgrade")
 
 # Mantis Specific Tasks
 - name: "Copying over config file"
   template:
     src: ../templates/config_inc.php.sample
-    dest: "{{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }}/config/config_inc.php.sample"
-    owner: "{{ git_download_mantis_configure_web_user }}"
-    group: "{{ git_download_mantis_configure_web_group }}"
+    dest: "{{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }}/config/config_inc.php.sample"
+    owner: "{{ git_download_mantis_web_user }}"
+    group: "{{ git_download_mantis_web_group }}"
     mode: 0755
-  when: (git_download_mantis_configure_installation_type == "new" or git_download_mantis_configure_installation_type == "upgrade")
+  when: (git_download_mantis_installation_type == "new" or git_download_mantis_installation_type == "upgrade")
 
 - name: "Setting ownership and permissions for web directory"
   file:
-    path: "{{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }}"
+    path: "{{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }}"
     state: directory
-    owner: "{{ git_download_mantis_configure_web_user }}"
-    group: "{{ git_download_mantis_configure_web_group }}"
+    owner: "{{ git_download_mantis_web_user }}"
+    group: "{{ git_download_mantis_web_group }}"
     mode: 0755
     recurse: yes
-  when: (git_download_mantis_configure_installation_type == "new" or git_download_mantis_configure_installation_type == "upgrade")
+  when: (git_download_mantis_installation_type == "new" or git_download_mantis_installation_type == "upgrade")
 
 - name: "Ensure directories are 0755"
-  command: find {{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }} -type d -exec chmod -c 0755 {} \;
+  command: find {{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }} -type d -exec chmod -c 0755 {} \;
   register: chmod_result
   changed_when: "chmod_result.stdout != \"\""
 
 - name: "Ensure files are 0644"
-  command: find {{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }} -type f -exec chmod -c 0644 {} \;
+  command: find {{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }} -type f -exec chmod -c 0644 {} \;
   register: chmod_result
   changed_when: "chmod_result.stdout != \"\""
 
 - name: "Removing Git folder from web server permissions"
   file:
-    path: "{{ git_download_mantis_configure_web_files_path }}{{ git_download_mantis_configure_web_directory_for_application }}/.git"
+    path: "{{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }}/.git"
     state: directory
     owner: root
     group: root
     mode: 0640
     recurse: yes
-  when: (git_download_mantis_configure_installation_type == "new" or git_download_mantis_configure_installation_type == "upgrade")
+  when: (git_download_mantis_installation_type == "new" or git_download_mantis_installation_type == "upgrade")
 
 - name: "Removing .gitignore from web server permissions"
   file:
-    path: "{{ web_files_path }}{{ web_directory_for_application }}/.gitignore"
+    path: "{{ git_download_mantis_web_files_path }}{{ git_download_mantis_web_directory_for_application }}/.gitignore"
     state: file
     owner: root
     group: root
     mode: 0640
-  when: (installation_type == "new" or installation_type == "upgrade")
+  when: (git_download_mantis_installation_type == "new" or git_download_mantis_installation_type == "upgrade")
   notify: restart-apache
 

@@ -1,9 +1,9 @@
 <?php
 $g_hostname               = 'localhost';
 $g_db_type                = 'mysqli';
-$g_database_name          = '{{ git_download_mantis_configure_db_name }}';
-$g_db_username            = '{{ git_download_mantis_configure_db_user }}';
-$g_db_password            = '{{ git_download_mantis_configure_db_password }}';
+$g_database_name          = '{{ git_download_mantis_db_name }}';
+$g_db_username            = '{{ git_download_mantis_db_user }}';
+$g_db_password            = '{{ git_download_mantis_db_password }}';
 
 $g_default_timezone       = 'UTC';
 
